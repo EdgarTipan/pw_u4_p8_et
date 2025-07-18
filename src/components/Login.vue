@@ -3,7 +3,7 @@
     <div class="login-caja">
       <h2>Iniciar Sesi&oacute;n</h2>
       <input v-model="username" type="text" placeholder="Usuario" />
-      <input v-model="password" type="text" placeholder="Contraseña" />
+      <input v-model="password" type="password" placeholder="Contraseña" />
       <button @click="login()">Ingresar</button>
     </div>
   </div>
@@ -19,8 +19,12 @@ export default {
   },
   methods: {
     login() {
-      if (this.username === "admin" && this.password === "123") {
-        localStorage.setItem("usuario", "admin");
+      if (
+        this.username === "admin" ||
+        (this.username === "estudiante" && this.password === "123")
+      ) {
+        localStorage.setItem("usuario", this.username);
+        console.log('Ingresado como: ' + this.username)
         localStorage.setItem("auth", "true");
         console.log("Autenticado exitosamente");
         this.$router.push("/home");
